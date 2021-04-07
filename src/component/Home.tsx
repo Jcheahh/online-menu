@@ -119,18 +119,18 @@ export default function Home() {
 
             <p> ** KLANG, Shah Alam，Cyberjaya地区，每周三运送！ </p>
 
-            <div>
+            <Card style={{ width: '17.5rem' }}>
                 <a href="/product/8861373">
-                    <img alt="chicken" src="https://images.weserv.nl/?url=https://s3-ap-southeast-1.amazonaws.com/v3-live.image.oddle.me/product/Sinceromultifunction6LpressurecookerSPC9001baee74.jpg&w=500&h=500&fit=cover"></img>
-                    <h3>
-                        Sincero multifunction 6L pressure cooker SPC-9001 多功能的智能电压力锅
-                    </h3>
-                    <div>
-                        <h4>RM469.90</h4>
+                    <Card.Img variant="top" src="https://images.weserv.nl/?url=https://s3-ap-southeast-1.amazonaws.com/v3-live.image.oddle.me/product/Sinceromultifunction6LpressurecookerSPC9001baee74.jpg&w=500&h=500&fit=cover" />
+                    <Card.Body>
+                        <Card.Title>Sincero multifunction 6L pressure cooker SPC-9001 多功能的智能电压力锅</Card.Title>
+                        <Card.Text>
+                            RM469.90
+                        </Card.Text>
                         <Button variant="warning">Add</Button>
-                    </div>
+                    </Card.Body>
                 </a>
-            </div>
+            </Card>
         </>
     );
 }
