@@ -5,19 +5,20 @@ import {
     Route,
 } from "react-router-dom";
 import Home from "./component/Home";
+import Product from "./component/Product";
 
 
 export default function App() {
     return (
         <Router>
             <Switch>
-                <Route path="/about">
-                    <About />
+                <Route exact path="/product/:id">
+                    <Product />
                 </Route>
-                <Route path="/users">
+                <Route exact path="/users">
                     <Users />
                 </Route>
-                <Route path="/">
+                <Route exact path="/">
                     <Home />
                 </Route>
             </Switch>
@@ -25,10 +26,6 @@ export default function App() {
     );
 }
 
-
-function About() {
-    return <h2>About</h2>;
-}
 
 function Users() {
     return <h2>Users</h2>;
