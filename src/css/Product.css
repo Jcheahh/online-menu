@@ -1,0 +1,10 @@
+.productModal {
+    padding: 30px;
+}
+
+.productModalButton {
+    border-radius: 15px;
+    margin: 0 auto;
+    cursor: pointer;
+    color: #fff;
+}
