@@ -14,10 +14,14 @@ import { Route } from "react-router";
 import { Link } from "react-router-dom";
 import CardModal from "./CardModal";
 import Product from "./Product";
+import "../css/Home.css";
+import Cart from "./Cart";
+import useCart from "../hook/useCart";
 
 export default function Home() {
     const [modalShow, setModalShow] = React.useState(false);
     const [cardModalShow, setCardModalShow] = React.useState(false);
+    const [cartModalShow, setCartModalShow] = React.useState(false);
 
     return (
         <>
@@ -38,7 +42,9 @@ export default function Home() {
                             <Dropdown.Item href="/">Bahasa</Dropdown.Item>
                             <Dropdown.Item href="/">中文</Dropdown.Item>
                         </DropdownButton>
-                        <Nav.Link href="/cart">Cart</Nav.Link>
+                        <Nav.Link onClick={() => setCartModalShow(true)}>
+                            Cart
+                        </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
@@ -66,27 +72,28 @@ export default function Home() {
                 </Carousel.Item>
             </Carousel>
             <br />
-            <h2 className="Text1 text-center text-warning">
+            <h2 className="Text2 text-center text-warning">
                 Don't Miss the Promotion
             </h2>
             <br />
 
-            <Card style={{ width: "20rem" }} className="card">
-                <Link to="/" onClick={() => setCardModalShow(true)}>
-                    <div className="cardHeader text-white">
-                        <b>
-                            <p className="Text3">RM15.00</p>
-                        </b>
-                        <p>Off Total Order!</p>
-                    </div>
-                    <div className="cardBody">
-                        <p>
-                            Code " SF15 " to get RM15 OFF when spend RM250 &
-                            above
-                        </p>
-                        <p className="details">View Details</p>
-                    </div>
-                </Link>
+            <Card
+                style={{ width: "22rem" }}
+                className="card"
+                onClick={() => setCardModalShow(true)}
+            >
+                <div className="cardHeader text-white">
+                    <b>
+                        <p className="Text5">RM15.00</p>
+                    </b>
+                    <p>Off Total Order!</p>
+                </div>
+                <div className="cardBody">
+                    <p>
+                        Code " SF15 " to get RM15 OFF when spend RM250 & above
+                    </p>
+                    <p className="details text-warning">View Details</p>
+                </div>
             </Card>
 
             <br />
@@ -120,12 +127,12 @@ export default function Home() {
             <br />
             <div>
                 <div id="876"></div>
-                <div className="Text1 text-warning">
+                <div className="Text2 text-warning">
                     【Super Deal Limited Time Promo】 限时优惠
                 </div>
             </div>
             <br />
-            <p className="Text2 text-warning">限时优惠！好康多多~</p>
+            <p className="Text4 text-warning">限时优惠！好康多多~</p>
             <CardDeck>
                 <Card
                     style={{ width: "17rem" }}
@@ -149,6 +156,7 @@ export default function Home() {
                                     variant="warning"
                                     className="text-white"
                                     block
+                                    // onClick={() => addToCart()}
                                 >
                                     Add
                                 </Button>
@@ -250,24 +258,24 @@ export default function Home() {
             <br />
             <div>
                 <div id="877"></div>
-                <div className="Text1 text-warning">
+                <div className="Text2 text-warning">
                     【Kitchen Must Have】厨神必备 *Delivery Tuesday to Sunday
                     2pm - 6pm
                 </div>
             </div>
             <br />
-            <p className="Text2 text-warning">
+            <p className="Text4 text-warning">
                 精心挑选的烹饪好帮手；让厨房小白也能轻松变厨神！
             </p>
 
-            <p className="Text2 text-warning">
+            <p className="Text4 text-warning">
                 {" "}
                 ** KLANG, Shah Alam，Cyberjaya地区，每周三运送！{" "}
             </p>
 
             <Card
                 style={{ width: "17rem" }}
-                className="shadow bg-white rounded"
+                className="last shadow bg-white rounded"
             >
                 <Link to="/product/8861373" onClick={() => setModalShow(true)}>
                     <Card.Img
@@ -292,7 +300,6 @@ export default function Home() {
                     </Card.Body>
                 </Link>
             </Card>
-            <br />
 
             <Route
                 path="/product/:id"
@@ -310,6 +317,8 @@ export default function Home() {
                 show={cardModalShow}
                 onHide={() => setCardModalShow(false)}
             />
+
+            <Cart show={cartModalShow} onHide={() => setCartModalShow(false)} />
         </>
     );
 }
