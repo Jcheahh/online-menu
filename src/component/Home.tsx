@@ -12,20 +12,22 @@ import {
 } from "react-bootstrap";
 import { Route } from "react-router";
 import { Link } from "react-router-dom";
-import CardModal from "./CardModal";
+import DiscountModal from "./DiscountModal";
 import Product from "./Product";
 import "../css/Home.css";
-import Cart from "./Cart";
-import useCart from "../hook/useCart";
+import { useCart } from "../hook/useCart";
+import CartModal from "./CartModal";
 
 export default function Home() {
-    const [modalShow, setModalShow] = React.useState(false);
-    const [cardModalShow, setCardModalShow] = React.useState(false);
+    const [modalShow, setModalShow] = React.useState(true);
+    const [discountModalShow, setDiscountModalShow] = React.useState(false);
     const [cartModalShow, setCartModalShow] = React.useState(false);
+
+    const cart = useCart()!;
 
     return (
         <>
-            <Navbar collapseOnSelect expand="lg" bg="light">
+            <Navbar collapseOnSelect expand="lg" bg="light" sticky="top">
                 <Navbar.Brand href="/">Home</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
@@ -43,7 +45,7 @@ export default function Home() {
                             <Dropdown.Item href="/">中文</Dropdown.Item>
                         </DropdownButton>
                         <Nav.Link onClick={() => setCartModalShow(true)}>
-                            Cart
+                            Cart ({cart.cart.length})
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
@@ -79,16 +81,16 @@ export default function Home() {
 
             <Card
                 style={{ width: "22rem" }}
-                className="card"
-                onClick={() => setCardModalShow(true)}
+                className="discount"
+                onClick={() => setDiscountModalShow(true)}
             >
-                <div className="cardHeader text-white">
+                <div className="discountHeader text-white">
                     <b>
                         <p className="Text5">RM15.00</p>
                     </b>
                     <p>Off Total Order!</p>
                 </div>
-                <div className="cardBody">
+                <div className="discountBody">
                     <p>
                         Code " SF15 " to get RM15 OFF when spend RM250 & above
                     </p>
@@ -303,22 +305,35 @@ export default function Home() {
 
             <Route
                 path="/product/:id"
-                render={() => {
+                render={({ history }) => {
                     return (
                         <Product
                             show={modalShow}
-                            onHide={() => setModalShow(false)}
+                            onHide={() => {
+                                setModalShow(false);
+
+                                // To keep the modal closing animation
+                                setTimeout(() => {
+                                    const { from } = {
+                                        from: { pathname: "/" },
+                                    };
+                                    history.replace(from);
+                                }, 150);
+                            }}
                         />
                     );
                 }}
             />
 
-            <CardModal
-                show={cardModalShow}
-                onHide={() => setCardModalShow(false)}
+            <DiscountModal
+                show={discountModalShow}
+                onHide={() => setDiscountModalShow(false)}
             />
 
-            <Cart show={cartModalShow} onHide={() => setCartModalShow(false)} />
+            <CartModal
+                show={cartModalShow}
+                onHide={() => setCartModalShow(false)}
+            />
         </>
     );
 }
