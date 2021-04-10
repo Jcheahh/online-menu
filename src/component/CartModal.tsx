@@ -1,5 +1,5 @@
 import "../css/CartModal.css";
-import { Button, Figure, Modal } from "react-bootstrap";
+import { Button, Figure, Modal, Row, Col } from "react-bootstrap";
 import { useCart } from "../hook/useCart";
 import products from "../products";
 
@@ -53,67 +53,74 @@ function CartModal(props: CartModalProps) {
                             return <p key={item.productId}>item not found</p>;
                         } else {
                             return (
-                                <div
+                                <Row
                                     key={item.productId}
                                     className="cartModalItem"
                                 >
-                                    <p>
+                                    <Col xs={3}>
                                         <Figure.Image
-                                            width={101}
-                                            height={150}
                                             alt={product.photo.altText}
                                             src={product.photo.url}
                                         />
-                                    </p>
-                                    <p>{product.title}</p>
-                                    <Button
-                                        onClick={() => {
-                                            cart.removeCartItem(item.productId);
-                                        }}
-                                    >
-                                        Delete item
-                                    </Button>
-                                    <Button
-                                        variant="default text-warning"
-                                        className="changeAmountButton"
-                                        onClick={() => {
-                                            cart.decreaseItemInCart(
-                                                item.productId
-                                            );
-                                        }}
-                                    >
-                                        -
-                                    </Button>
-                                    <input
-                                        value={item.amount}
-                                        className="productInput"
-                                        type="number"
-                                        onChange={(e) => {
-                                            cart.modifyItemAmount(
-                                                item.productId,
-                                                (_amount) =>
-                                                    parseInt(e.target.value)
-                                            );
-                                        }}
-                                    />
-                                    <Button
-                                        variant="default text-warning"
-                                        className="changeAmountButton"
-                                        onClick={() =>
-                                            cart.increaseItemInCart(
-                                                item.productId
-                                            )
-                                        }
-                                    >
-                                        +
-                                    </Button>
-                                    <p>
-                                        RM
-                                        {(product.price * item.amount).toFixed(
-                                            2
-                                        )}
-                                    </p>
-                                </div>
+                                    </Col>
+                                    <Col xs={9}>
+                                        <p>{product.title}</p>
+
+                                        <Button
+                                            variant="default text-warning"
+                                            className="change-amount-button"
+                                            onClick={() => {
+                                                cart.decreaseItemInCart(
+                                                    item.productId
+                                                );
+                                            }}
+                                        >
+                                            -
+                                        </Button>
+                                        <input
+                                            value={item.amount}
+                                            className="product-input"
+                                            type="number"
+                                            onChange={(e) => {
+                                                cart.modifyItemAmount(
+                                                    item.productId,
+                                                    (_amount) =>
+                                                        parseInt(e.target.value)
+                                                );
+                                            }}
+                                        />
+                                        <Button
+                                            variant="default text-warning"
+                                            className="change-amount-button"
+                                            onClick={() =>
+                                                cart.increaseItemInCart(
+                                                    item.productId
+                                                )
+                                            }
+                                        >
+                                            +
+                                        </Button>
+                                        <Button
+                                            variant="danger"
+                                            style={{
+                                                float: "right",
+                                            }}
+                                            onClick={() => {
+                                                cart.removeCartItem(
+                                                    item.productId
+                                                );
+                                            }}
+                                        >
+                                            Delete
+                                        </Button>
+                                        <p>
+                                            RM
+                                            {(
+                                                product.price * item.amount
+                                            ).toFixed(2)}
+                                        </p>
+                                    </Col>
+                                </Row>
                             );
                         }
                     })}
@@ -122,23 +129,22 @@ function CartModal(props: CartModalProps) {
             <Modal.Footer>
                 <p>Total</p>
                 <p>
-                    RM
-                    {cart.cart
-                        .reduce((amount, item) => {
-                            const product = products.find(
-                                (p) => p.id === item.productId
-                            );
-                            if (product) {
-                                return amount + product.price * item.amount;
-                            } else {
-                                return amount;
-                            }
-                        }, 0)
-                        .toFixed(2)}
+                    <b>
+                        RM
+                        {cart.cart
+                            .reduce((amount, item) => {
+                                const product = products.find(
+                                    (p) => p.id === item.productId
+                                );
+                                if (product) {
+                                    return amount + product.price * item.amount;
+                                } else {
+                                    return amount;
+                                }
+                            }, 0)
+                            .toFixed(2)}
+                    </b>
                 </p>
-                <Button variant="warning text-white" block>
-                    Select your dining preference
-                </Button>
             </Modal.Footer>
         </Modal>
     );

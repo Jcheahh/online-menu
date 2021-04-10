@@ -31,12 +31,12 @@ function DiscountModal(props: DiscountModalProps) {
                     </button>
                     <div className="discountHeader text-white">
                         <b>
-                            <p className="Text1">RM15.00</p>
+                            <p className="Text Text1">RM15.00</p>
                         </b>
-                        <p className="Text3">Off Total Order!</p>
+                        <p className="Text Text4">Off Total Order!</p>
                     </div>
                     <div className="discountBody">
-                        <p className="Text3">
+                        <p className="Text Text4">
                             Code " SF15 " to get RM15 OFF when spend RM250 &
                             above
                         </p>

@@ -1,9 +1,47 @@
-.productModal {
-    padding: 30px;
-    padding-bottom: 5px;
+.product-modal {
+    padding: 0px;
 }
 
-.productModalButton {
+@media (min-width: 768px) {
+    .product-modal {
+        padding: 30px;
+        padding-bottom: 5px;
+    }
+}
+
+.product-modal .modal-body {
+    padding: 0px;
+    height: calc(100vh - 73px);
+    overflow-y: auto;
+    padding-bottom: 15px;
+}
+
+.product-content {
+    border: none;
+}
+
+@media (min-width: 992px) {
+    .product-content {
+        max-height: calc(100vh - 3.5rem);
+    }
+    .product-modal .modal-body {
+        max-height: calc(100vh - 3.5rem - 108px);
+        height: auto;
+        overflow-y: auto;
+    }
+}
+
+.product-dialog {
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .product-dialog {
+        margin: 1.75rem auto;
+    }
+}
+
+.product-modal-button {
     border-radius: 15px;
     margin: 0 auto;
     cursor: pointer;
@@ -13,7 +51,11 @@
     font-weight: 700;
 }
 
-.changeAmountButton {
+.product-modal-description {
+    padding: 0 15px;
+}
+
+.change-amount-button {
     width: 44px;
     border-color: #ffc107;
     font-size: 1.5rem;
@@ -21,13 +63,14 @@
     line-height: 1;
     text-align: center;
     border-width: 2px;
-}
-
-.productModalFooter button {
     margin: 0 6px;
 }
 
-.productInput {
+.product-modal-footer button {
+    margin: 0 6px;
+}
+
+.product-input {
     width: 44px;
     height: 40px;
     text-align: center;

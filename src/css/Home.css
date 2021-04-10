@@ -2,6 +2,7 @@
     border-radius: 15px;
     margin: 0 auto;
     cursor: pointer;
+    max-width: 22rem;
 }
 
 .discountHeader {
@@ -15,32 +16,106 @@
     padding: 16px 20px;
 }
 
+.super-deal-tab {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .super-deal-tab {
+        display: flex;
+    }
+}
+
+.carousel.slide {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
 .last {
     position: absolute;
 }
 
-.Text1 {
-    font-size: 4rem;
+.product-row {
+    align-items: stretch;
 }
 
-.Text2 {
+.product-row > div {
+    padding: 4px;
+}
+
+@media (min-width: 768px) {
+    .product-row > div {
+        padding: 0 8px;
+    }
+}
+
+.product-row .card-title {
+    font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+    .product-row .card-title {
+        font-size: 1.25rem;
+    }
+}
+
+.product-row .card-body {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.Text {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.Text1 {
+    font-weight: 700;
     font-size: 2rem;
 }
 
-.Text3 {
+.Text2 {
+    font-weight: 700;
     font-size: 1.5rem;
 }
 
+.Text3 {
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
 .Text4 {
+    font-weight: 700;
     font-size: 1rem;
 }
 
 .Text5 {
-    font-size: 2.5rem;
+    font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+    .Text1 {
+        font-size: 4rem;
+    }
+
+    .Text2 {
+        font-size: 2.5rem;
+    }
+
+    .Text3 {
+        font-size: 2rem;
+    }
+
+    .Text4 {
+        font-size: 1.5rem;
+    }
 }
 
 .modalCloseButton {
     position: absolute;
     right: 10px;
     top: 10px;
+    z-index: 1;
 }

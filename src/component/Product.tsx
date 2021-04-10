@@ -38,42 +38,46 @@ export default function Product(props: ProductModalProps) {
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+            dialogClassName="product-dialog"
+            contentClassName="product-content"
         >
-            <div className="productModal">
+            <div className="product-modal">
                 <button
                     type="button"
-                    className="close"
+                    className="close modalCloseButton"
                     aria-label="Close"
                     onClick={() => props.onHide()}
                 >
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <Row>
-                    <Col>
-                        <Figure.Image
-                            width={471}
-                            height={480}
-                            alt={product.photo.altText}
-                            src={product.photo.url}
-                        />
-                    </Col>
-                    <Col>
-                        <h3>{product.title}</h3>
-                        <p
-                            style={{
-                                whiteSpace: "break-spaces",
-                            }}
-                        >
-                            {product.description}
-                        </p>
-                        <div>RM{product.price.toFixed(2)}</div>
-                    </Col>
-                </Row>
-                <br />
-                <Modal.Footer className="productModalFooter">
+                <Modal.Body>
+                    <Row>
+                        <Col xs={12} lg={6}>
+                            <Figure.Image
+                                alt={product.photo.altText}
+                                src={product.photo.url}
+                            />
+                        </Col>
+                        <Col xs={12} lg={6}>
+                            <div className="product-modal-description">
+                                <h3>{product.title}</h3>
+                                <p
+                                    style={{
+                                        whiteSpace: "break-spaces",
+                                    }}
+                                >
+                                    {product.description}
+                                </p>
+                                <div>RM{product.price.toFixed(2)}</div>
+                            </div>
+                        </Col>
+                    </Row>
+                </Modal.Body>
+
+                <Modal.Footer className="product-modal-footer">
                     <Button
                         variant="default text-warning"
-                        className="changeAmountButton"
+                        className="change-amount-button"
                         onClick={() => setAmount((a) => a - 1)}
                         disabled={amount <= 1}
                     >
@@ -81,7 +85,7 @@ export default function Product(props: ProductModalProps) {
                     </Button>
                     <input
                         value={amount}
-                        className="productInput"
+                        className="product-input"
                         type="number"
                         onChange={(e) => {
                             setAmount(parseInt(e.target.value, 10));
@@ -89,14 +93,14 @@ export default function Product(props: ProductModalProps) {
                     />
                     <Button
                         variant="default text-warning"
-                        className="changeAmountButton"
+                        className="change-amount-button"
                         onClick={() => setAmount((a) => a + 1)}
                     >
                         +
                     </Button>
                     <Button
                         variant="warning"
-                        className="productModalButton"
+                        className="product-modal-button"
                         block
                         onClick={addItem}
                         disabled={amount < 1}
