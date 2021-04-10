@@ -5,19 +5,36 @@ interface CartItem {
     amount: number;
 }
 
-function useCart() {
+interface CartContext {
+    cart: CartItem[];
+    addToCart: (item: CartItem) => void;
+    modifyItemAmount: (
+        productId: string,
+        modify: (amount: number) => number
+    ) => void;
+    increaseItemInCart: (productId: string) => void;
+    decreaseItemInCart: (productId: string) => void;
+    removeCartItem: (productId: string) => void;
+}
+
+export const cartContext = React.createContext<CartContext | null>(null);
+
+export function useCart() {
+    return React.useContext(cartContext);
+}
+
+export function useProvideCart(): CartContext {
     const [cart, setCart] = React.useState<CartItem[]>([]);
 
-    const addToCart = (productId: string) => {
-        setCart([
-            ...cart,
-            {
-                productId,
-                amount: 1,
-            },
-        ]);
+    const addToCart = (item: CartItem) => {
+        try {
+            modifyItemAmount(item.productId, (amount) => amount + item.amount);
+        } catch (error) {
+            setCart([...cart, item]);
+        }
     };
 
+    // Modify item amount in cart, remove if lesser than 0
     const modifyItemAmount = (
         productId: string,
         modify: (amount: number) => number
@@ -25,43 +42,43 @@ function useCart() {
         const matchIndex = cart.findIndex((p) => p.productId === productId);
         if (matchIndex > -1) {
             const item = cart[matchIndex];
-            const newItem = {
-                ...item,
-                amount: modify(item.amount),
-            };
             const itemsBefore = cart.slice(0, matchIndex);
             const itemsAfter = cart.slice(matchIndex + 1, cart.length);
-            setCart([...itemsBefore, newItem, ...itemsAfter]);
+
+            const newAmount = modify(item.amount);
+
+            if (newAmount < 1) {
+                setCart([...itemsBefore, ...itemsAfter]);
+            } else {
+                const newItem = {
+                    ...item,
+                    amount: newAmount,
+                };
+
+                setCart([...itemsBefore, newItem, ...itemsAfter]);
+            }
         } else {
-            throw new Error("i");
+            throw new Error("item not found");
         }
     };
 
     const increaseItemInCart = (productId: string) => {
-        return modifyItemAmount(productId, (amount) => amount + 1);
+        modifyItemAmount(productId, (amount) => amount + 1);
     };
 
     const decreaseItemInCart = (productId: string) => {
-        return modifyItemAmount(productId, (amount) => amount - 1);
+        modifyItemAmount(productId, (amount) => amount - 1);
     };
 
-    const removeCart = (productId: string) => {
-        const matchIndex = cart.findIndex((p) => p.productId === productId);
-        if (matchIndex > -1) {
-            const itemsBefore = cart.slice(0, matchIndex);
-            const itemsAfter = cart.slice(matchIndex + 1, cart.length);
-            setCart([...itemsBefore, ...itemsAfter]);
-        } else {
-            throw new Error("This id is not exists");
-        }
+    const removeCartItem = (productId: string) => {
+        modifyItemAmount(productId, (_amount) => 0);
     };
     return {
         cart,
         addToCart,
+        modifyItemAmount,
         increaseItemInCart,
         decreaseItemInCart,
-        removeCart,
+        removeCartItem,
     };
 }
-
-export default useCart;
