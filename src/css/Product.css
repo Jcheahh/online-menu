@@ -1,5 +1,6 @@
 .productModal {
     padding: 30px;
+    padding-bottom: 5px;
 }
 
 .productModalButton {
@@ -7,4 +8,40 @@
     margin: 0 auto;
     cursor: pointer;
     color: #fff;
+    width: auto;
+    flex: 1;
+    font-weight: 700;
+}
+
+.changeAmountButton {
+    width: 44px;
+    border-color: #ffc107;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    border-width: 2px;
+}
+
+.productModalFooter button {
+    margin: 0 6px;
+}
+
+.productInput {
+    width: 44px;
+    height: 40px;
+    text-align: center;
+}
+
+/* To hide arrows from input number */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
 }

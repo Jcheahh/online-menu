@@ -1,0 +1,18 @@
+.cartModalBody {
+    min-height: 650px;
+}
+
+.cartModalItem {
+    flex-direction: row;
+}
+
+.cartDialog {
+    margin: 0;
+    height: 100vh;
+    margin-left: auto;
+    width: 500px;
+}
+
+.cartContent {
+    height: 100vh;
+}
