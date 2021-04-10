@@ -2,10 +2,6 @@
     min-height: 650px;
 }
 
-.cartModalItem {
-    /* flex-direction: row; */
-}
-
 .cartModalItem .col-3 {
     padding-right: 0px;
 }
